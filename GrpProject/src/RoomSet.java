@@ -15,9 +15,9 @@ public class RoomSet {
 		}
 		return "Room not found";
 	}
-	public static void deleteRoom (Room room) {
-		if(roomExist(room) == true) {
-			int index = getRoomIndex(room);
+	public static void deleteRoom (int roomNum) {
+		if(roomExist(roomNum) == true) {
+			int index = getRoomIndex(roomNum);
 			for(int i = index; i < count - 1; i++) {
 				roomSet[i] = roomSet[i+1];
 			}
