@@ -8,7 +8,13 @@ public class RoomSet {
 		count++;
 	}
 	
-	
+	public String getRoom (int roomNumber) {
+		if(roomExist(roomNumber)==true) {
+			int index = getRoomIndex(roomNumber);
+			return roomSet[index].toString();
+		}
+		return "Room not found";
+	}
 	public void deleteRoom (Room room) {
 		if(roomExist(room) == true) {
 			int index = getRoomIndex(room);
@@ -26,6 +32,22 @@ public class RoomSet {
 				roomSet[i]=room;
 			}
 		}
+	}
+	public boolean roomExist(int roomNum) {
+		for(int i = 0; i < count; i++) {
+			if (roomSet[i].getRoomNumber() == roomNum) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public int getRoomIndex(int roomNum) {
+		for(int i = 0; i < count; i++) {
+			if (roomSet[i].getRoomNumber() == roomNum) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	//helper method

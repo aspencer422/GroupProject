@@ -2,7 +2,12 @@
 public class App {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Room room1 = new Room(1,30,true);
+		
+		RoomSet temp = new RoomSet();
+		
+		temp.addRoom(room1);
+		System.out.println(temp.getRoom(1));
 
 	}
 
