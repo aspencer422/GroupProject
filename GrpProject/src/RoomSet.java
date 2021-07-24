@@ -15,6 +15,7 @@ public class RoomSet {
 			for(int i = index; i < count - 1; i++) {
 				roomSet[i] = roomSet[i+1];
 			}
+			count--;
 		}
 	}
 	
