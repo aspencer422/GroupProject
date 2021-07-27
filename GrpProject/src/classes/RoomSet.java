@@ -1,4 +1,4 @@
-
+package classes;
 public class RoomSet {
 	private static Room[] roomSet = new Room[20];
 	private static int count = 0;
