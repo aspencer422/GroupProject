@@ -6,10 +6,10 @@ public class Employee {
   private String position;
   private String username;
   private String password;
-  private Meeting [] commitedMeetings = new Meeting[20];
+  private int [] commitedMeetings = new int[20];
   private int cmCount;
-  private String[] notificationSet = new String[20];
-  private int nitifCount;
+  private int[] notificationSet = new int[20];
+  private int notifCount;
 //schedule = new empty hashset ::: may not be needed here and implemented in Scedule set
   
   public Employee(String name, int id, String position, String username, String password) {
@@ -19,10 +19,44 @@ public class Employee {
 		this.username = username;
 		this.password = password;
 		this.cmCount = 0;
-		this.nitifCount = 0;
+		this.notifCount = 0;
 	}
   
   //notification set may change to its own class so implement later.
+  public void acceptNotif(Meeting meeting) {
+	  MeetingSet.addEmpToMeeting(meeting.getMeetingNumber(), this);
+	  commitedMeetings[cmCount]=meeting.getMeetingNumber();
+	  cmCount++;
+	  
+	  //add to schedule Set class
+	  ScheduleSet.addEntry(this.id, meeting.getMeetingNumber(), meeting.getStartTime(), meeting.getEndTime());
+	  this.deleteNotif(meeting.getMeetingNumber());
+  }
+  public void deleteNotif(int meetingNum) {
+	  if (notifCount == 1 && notificationSet[0] == meetingNum) {
+		  notificationSet[0]= 0;
+		  notifCount--;
+		  return;
+	  }else {
+		  boolean flag = false;
+		  
+		  for (int i = 0; i < (notifCount - 1);i++) {
+			  if (notificationSet[i] == meetingNum) {
+				  flag = true;
+			  }
+			  if (flag == true) {
+				  notificationSet[i] = notificationSet[i+1];
+			  }
+		  }
+		  notificationSet[notifCount]= 0;
+		  notifCount--;
+	  }
+  }
+  
+  public void addNotif(int meetingNum) {
+	  notificationSet[notifCount] = meetingNum;
+	  notifCount++;
+  }
 
   public boolean equals(Employee employee) {
 		return this.id == employee.getId();
@@ -32,29 +66,26 @@ public class Employee {
 		return this.id == id;
 	}
   
-  public void addMeetingToPersonalSet (Meeting meeting) {
-	  this.commitedMeetings[this.cmCount]= meeting;
-	  this.cmCount++;
-  }
   
-  public void deleteMeetingFromPersonalSet (Meeting meeting) {
+  public void deleteMeetingFromPersonalSet (int meetingNum) {
 	  
-	  boolean flag = false;
-	  
-	  for ( int i = 0; i < (this.cmCount -1) ; i++) {
+	  if (cmCount == 1 && commitedMeetings[0] == meetingNum) {
+		  commitedMeetings[0]= 0;
+		  cmCount--;
+		  return;
+	  }else {
+		  boolean flag = false;
 		  
-		  if(this.commitedMeetings[i].equals(meeting))
-		  {
-			  flag = true;
+		  for (int i = 0; i < (cmCount - 1);i++) {
+			  if (commitedMeetings[i] == meetingNum) {
+				  flag = true;
+			  }
+			  if (flag == true) {
+				  commitedMeetings[i] = commitedMeetings[i+1];
+			  }
 		  }
-		  if(flag == true)
-		  {
-			  this.commitedMeetings[i] = this.commitedMeetings[i+1];
-		  }
-	  }
-	  if(flag == true)
-	  {
-		  this.cmCount--;
+		  commitedMeetings[cmCount]= 0;
+		  cmCount--;
 	  }
 	
   }

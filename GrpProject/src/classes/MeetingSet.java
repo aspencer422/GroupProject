@@ -4,6 +4,11 @@ public class MeetingSet {
 	private static Meeting[] meetingSet = new Meeting[20];
 	private static int count = 0;
 	
+	public static void addEmpToMeeting(int meetingNum, Employee employee) {
+		int index = getMeetingIndex(meetingNum);
+		meetingSet[index].addEmployee(employee);
+	}
+	
 	public static void addMeeting(Meeting meeting) {
 		meetingSet[count]= meeting;
 		count++;
