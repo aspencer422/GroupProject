@@ -4,18 +4,20 @@ import java.util.*;
 public class Meeting {
 	private int meetingNumber;
 	private Date date;
-	private int time;  // Military time
+	private int startTime;  // Military time
+	private int endTime;
 	private Employee owner;
 	private Employee[] attendingSet;
 	private int attendingCount;
 	
 	
 	
-	public Meeting(int meetingNumber, Date date, int time, Employee owner) {
+	public Meeting(int meetingNumber, Date date, int startTime,int endTime, Employee owner) {
 		super();
 		this.meetingNumber = meetingNumber;
 		this.date = date;
-		this.time = time;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.owner = owner;
 		this.attendingCount = 0;
 		this.attendingSet = new Employee[20];
@@ -72,8 +74,21 @@ public class Meeting {
 		this.attendingCount++;
 	}
 	
-	
-	
+	public int getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
+	}
+
+	public int getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(int endTime) {
+		this.endTime = endTime;
+	}
 	public int getMeetingNumber() {
 		return meetingNumber;
 	}
@@ -86,12 +101,7 @@ public class Meeting {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public int getTime() {
-		return time;
-	}
-	public void setTime(int time) {
-		this.time = time;
-	}
+
 	public Employee getOwner() {
 		return owner;
 	}
