@@ -7,17 +7,21 @@ public class RoomSet {
 		roomSet[count]=room;
 		count++;
 	}
-	
-	public static String getRoom (int roomNumber) {
-		if(roomExist(roomNumber)==true) {
-			int index = getRoomIndex(roomNumber);
-			return roomSet[index].toString();
-		}
-		return "Room not found";
+	//must make sure Room exist before use
+	public static Room getRoom (int roomNumber) {
+		
+		int index = getRoomIndex(roomNumber);
+		return roomSet[index];
+		
 	}
 	public static void deleteRoom (int roomNum) {
 		if(roomExist(roomNum) == true) {
 			int index = getRoomIndex(roomNum);
+			
+			if (count == 1) {
+				roomSet[0]= null;
+			}
+			
 			for(int i = index; i < count - 1; i++) {
 				roomSet[i] = roomSet[i+1];
 			}

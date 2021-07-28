@@ -22,7 +22,15 @@ public class Employee {
 		this.nitifCount = 0;
 	}
   
-  //notification set may change to its own class so implement later. 
+  //notification set may change to its own class so implement later.
+
+  public boolean equals(Employee employee) {
+		return this.id == employee.getId();
+	}
+  
+  public boolean equals(int id) {
+		return this.id == id;
+	}
   
   public void addMeetingToPersonalSet (Meeting meeting) {
 	  this.commitedMeetings[this.cmCount]= meeting;

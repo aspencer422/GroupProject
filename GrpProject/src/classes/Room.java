@@ -17,7 +17,11 @@ public class Room {
 	}
 	
 	public boolean equals(Room room) {
-		return this.roomNumber == room.roomNumber;
+		return this.roomNumber == room.getRoomNumber();
+	}
+	
+	public boolean equals(int roomNumber) {
+		return this.roomNumber == roomNumber;
 	}
 	
 	

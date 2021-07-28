@@ -7,7 +7,7 @@ public class App {
 		
 		
 		RoomSet.addRoom(room1);
-		System.out.println(RoomSet.getRoom(1));
+		System.out.println(RoomSet.getRoom(1).toString());
 
 	}
 

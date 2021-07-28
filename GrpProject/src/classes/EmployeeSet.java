@@ -9,16 +9,22 @@ public class EmployeeSet {
 		count++;
 	}
 	
-	public static String getEmployee (int id) {
-		if(employeeExist(id)==true) {
-			int index = getEmployeeIndex(id);
-			return employeeSet[index].toString();
-		}
-		return "Employee not found";
+	//must be sure employee exist before use
+	public static Employee getEmployee (int id) {
+		
+		int index = getEmployeeIndex(id);
+		return employeeSet[index];
+		
 	}
 	public static void deleteEmployee (int id) {
 		if(employeeExist(id) == true) {
 			int index = getEmployeeIndex(id);
+			
+			if (count == 1) {
+				employeeSet[0]= null;
+			}
+			
+			//loop activate only if count > 1
 			for(int i = index; i < count - 1; i++) {
 				employeeSet[i] = employeeSet[i+1];
 			}
