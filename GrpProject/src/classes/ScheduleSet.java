@@ -1,4 +1,6 @@
 package classes;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class ScheduleSet {
@@ -9,6 +11,28 @@ public class ScheduleSet {
 	private static int[] endTime = new int [100];
 	private static int count = 0;
 	
+	public static boolean[] checkAvail(int[] empNums,Date checkDate) {
+		boolean[] result = new boolean[24];
+		Arrays.fill(result, true);
+		for (int i = 0; i < empNums.length;i++) {
+			for ( int j = 0; j < count ; j++) {
+				if(empNums[i]==empId[j] && isSameDay(checkDate,date[j]) == true) {
+					result[startTime[j]/100]=false;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	public static boolean isSameDay(Date date1, Date date2) {
+	    Instant instant1 = date1.toInstant()
+	      .truncatedTo(ChronoUnit.DAYS);
+	    Instant instant2 = date2.toInstant()
+	      .truncatedTo(ChronoUnit.DAYS);
+	    return instant1.equals(instant2);
+	}
+	
 	public static void addEntry(int empKey, int meetingKey,Date dateEntry, int start, int end) {
 		empId[count]= empKey;
 		meetingNum[count]=meetingKey;
@@ -17,6 +41,7 @@ public class ScheduleSet {
 		endTime[count]=end;
 		count++;
 	}
+	
 	
 	public static void deleteEntry(int empKey, int meetingKey) {
 		if(empId[0] == empKey && meetingNum[0] == meetingKey && count == 1) {
