@@ -7,18 +7,20 @@ public class Meeting {
 	private int startTime;  // Military time
 	private int endTime;
 	private Employee owner;
+	private  Room room;
 	private Employee[] attendingSet;
 	private int attendingCount;
 	
 	
 	
-	public Meeting(int meetingNumber, Date date, int startTime,int endTime, Employee owner) {
+	public Meeting(int meetingNumber, Date date, int startTime,int endTime, Employee owner,Room room) {
 		super();
 		this.meetingNumber = meetingNumber;
 		this.date = date;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.owner = owner;
+		this.room = room;
 		this.attendingCount = 0;
 		this.attendingSet = new Employee[20];
 	}

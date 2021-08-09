@@ -4,6 +4,7 @@ public class Employee {
   private String name;
   private int id;
   private String position;
+  private boolean admin;
   private String username;
   private String password;
   private int [] commitedMeetings = new int[20];
@@ -29,7 +30,7 @@ public class Employee {
 	  cmCount++;
 	  
 	  //add to schedule Set class
-	  ScheduleSet.addEntry(this.id, meeting.getMeetingNumber(), meeting.getStartTime(), meeting.getEndTime());
+	  ScheduleSet.addEntry(this.id, meeting.getMeetingNumber(),meeting.getDate(), meeting.getStartTime(), meeting.getEndTime());
 	  this.deleteNotif(meeting.getMeetingNumber());
   }
   public void deleteNotif(int meetingNum) {
@@ -64,6 +65,13 @@ public class Employee {
   
   public boolean equals(int id) {
 		return this.id == id;
+	}
+  public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
   
   

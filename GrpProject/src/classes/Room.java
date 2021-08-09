@@ -24,7 +24,13 @@ public class Room {
 		return this.roomNumber == roomNumber;
 	}
 	
-	
+	public boolean checkRoomCap(int num) {
+		boolean result = true;
+		if(this.roomCap < num) {
+			result = false;
+		}
+		return result;
+	}
 
 	public int getRoomNumber() {
 		return roomNumber;
