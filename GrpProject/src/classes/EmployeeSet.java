@@ -4,18 +4,35 @@ public class EmployeeSet {
 	private static Employee[] employeeSet = new Employee[20];
 	private static int count = 0;
 	
+	/**
+	 * public static void addEmployee(Employee employee)
+	 * Adds Employee  to employeeSet and increments
+	 * @param employee
+	 */
 	public static void addEmployee(Employee employee) {
 		employeeSet[count]=employee;
 		count++;
 	}
 	
 	//must be sure employee exist before use
+	/**
+	 * public static Employee getEmployee (int id) 
+	 * gets employee given id
+	 * MUST CHECK IS EXIST FIRST
+	 * @param id
+	 * @return Employee
+	 */
 	public static Employee getEmployee (int id) {
 		
 		int index = getEmployeeIndex(id);
 		return employeeSet[index];
 		
 	}
+	/**
+	 * public static void deleteEmployee (int id)
+	 * deletes employee
+	 * @param id
+	 */
 	public static void deleteEmployee (int id) {
 		if(employeeExist(id) == true) {
 			int index = getEmployeeIndex(id);
@@ -32,7 +49,12 @@ public class EmployeeSet {
 		}
 	}
 	
-	//searches by Employee then replaces the entire Employee object
+	
+	/**
+	 * public static void updateEmployee(Employee employee)
+	 * updates employee by object
+	 * @param employee
+	 */
 	public static void updateEmployee(Employee employee) {
 		for(int i = 0; i < count; i++) {
 			if (employeeSet[i].equals(employee)) {
@@ -40,6 +62,11 @@ public class EmployeeSet {
 			}
 		}
 	}
+	/**
+	 * public static boolean employeeExist(int id)
+	 * @param id
+	 * @return bool
+	 */
 	public static boolean employeeExist(int id) {
 		for(int i = 0; i < count; i++) {
 			if (employeeSet[i].getId() == id) {
@@ -48,6 +75,12 @@ public class EmployeeSet {
 		}
 		return false;
 	}
+	/**
+	 * public static int getEmployeeIndex(int id)
+	 * gets index by int ID
+	 * @param id
+	 * @return index int
+	 */
 	public static int getEmployeeIndex(int id) {
 		for(int i = 0; i < count; i++) {
 			if (employeeSet[i].getId() == id) {
@@ -57,7 +90,13 @@ public class EmployeeSet {
 		return -1;
 	}
 	
-	//helper method
+	
+	/**
+	 * public static boolean EmployeeExist(Employee employee)
+	 * check if exist by object
+	 * @param employee
+	 * @return
+	 */
 	public static boolean EmployeeExist(Employee employee) {
 		for(int i = 0; i < count; i++) {
 			if (employeeSet[i].equals(employee)) {
@@ -67,6 +106,12 @@ public class EmployeeSet {
 		return false;
 	}
 	
+	/**
+	 * public static int getEmployeeIndex(Employee employee)
+	 * gets index by object
+	 * @param employee
+	 * @return
+	 */
 	public static int getEmployeeIndex(Employee employee) {
 		for(int i = 0; i < count; i++) {
 			if (employeeSet[i].equals(employee)) {
