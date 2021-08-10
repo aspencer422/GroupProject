@@ -6,13 +6,25 @@ public class NotificationSet {
 	  private static boolean[] handled = new boolean[100];
 	  private static int count = 0;
 	  
-	  public static void addToNotificationSet(Employee emp, Meeting meet) {
+	  /**
+	   * public static void addToNotificationSet(Employee emp, Meeting meet) 
+	   * adds entry
+	 * @param emp
+	 * @param meet
+	 */
+	public static void addToNotificationSet(Employee emp, Meeting meet) {
 		  employeeSet[count] = emp;
 		  meetingSet[count] = meet;
 		  handled[count]=false;
 		  count++;
 	  }
-	  public static void setHandled(Employee emp, Meeting meet) {
+	  /**
+	   * public static void setHandled(Employee emp, Meeting meet)
+	   * sets handled 
+	 * @param emp
+	 * @param meet
+	 */
+	public static void setHandled(Employee emp, Meeting meet) {
 		  for(int i = 0; i < count ; i++) {
 			  if(employeeSet[i].equals(emp) && meetingSet[i].equals(meet) && handled[i] == false) {
 				  handled[i]=true;
@@ -20,7 +32,13 @@ public class NotificationSet {
 			  }
 		  }
 	  }
-	  public static Meeting[] fillNotifications(Employee emp) {
+	  /**
+	   * public static Meeting[] fillNotifications(Employee emp)
+	   * Fills notifications for ram object in GUI
+	 * @param emp
+	 * @return
+	 */
+	public static Meeting[] fillNotifications(Employee emp) {
 		  Meeting[] temp = new Meeting[50];
 		  int counter = 0;
 		  for(int i = 0; i < count; i++ ) {
@@ -35,7 +53,13 @@ public class NotificationSet {
 			  }
 			  return result;
 	  }
-	  public static int getEmpCount(Employee emp) {
+	  /**
+	   * public static int getEmpNotifCount(Employee emp)
+	   * Get emp count for given employee
+	 * @param emp
+	 * @return
+	 */
+	public static int getEmpNotifCount(Employee emp) {
 		  Meeting[] temp = new Meeting[50];
 		  int counter = 0;
 		  for(int i = 0; i < count; i++ ) {
