@@ -28,8 +28,8 @@ public Employee(String name, int id, String position, String username, String pa
 		this.position = position;
 		this.username = username;
 		this.password = password;
-		this.cmCount = 0;
-		this.notifCount = 0;
+		this.setCmCount(0);
+		this.setNotifCount(0);
 	}
   /**
    * public Employee(Employee emp)
@@ -42,26 +42,26 @@ public Employee(Employee emp) {
 		this.position = emp.getPosition();
 		this.username = emp.getUsername();
 		this.password = emp.getPassword();
-		this.commitedMeetings = MembershipSet.fillMeetings(emp);
-		this.cmCount = MembershipSet.getEmpCount(emp);
-		this.notificationSet = NotificationSet.fillNotifications(emp);
-		this.notifCount = NotificationSet.getEmpCount(emp);
+		this.setCommitedMeetings(MembershipSet.fillMeetings(emp));
+		this.setCmCount(MembershipSet.getEmpCount(emp));
+		this.setNotificationSet(NotificationSet.fillNotifications(emp));
+		this.setNotifCount(NotificationSet.getEmpNotifCount(emp));
 	}
   /**
    * public void updateNotifs()
  *  updates notifications and notifcount
  */
 public void updateNotifs() {
-	  this.notificationSet = NotificationSet.fillNotifications(this);
-	  this.notifCount = NotificationSet.getEmpCount(this);
+	  this.setNotificationSet(NotificationSet.fillNotifications(this));
+	  this.setNotifCount(NotificationSet.getEmpNotifCount(this));
   }
   /**
  * public void updateCommitedMeetings()
  * updates commitedMeeting and CMcount
  */
 public void updateCommitedMeetings() {
-	  this.commitedMeetings = MembershipSet.fillMeetings(this);
-	  this.cmCount = MembershipSet.getEmpCount(this);
+	  this.setCommitedMeetings(MembershipSet.fillMeetings(this));
+	  this.setCmCount(MembershipSet.getEmpCount(this));
   }
   
   
@@ -171,6 +171,30 @@ public void deleteMeetingFromPersonalSet (Meeting meeting) {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Meeting[] getCommitedMeetings() {
+		return commitedMeetings;
+	}
+	public void setCommitedMeetings(Meeting[] commitedMeetings) {
+		this.commitedMeetings = commitedMeetings;
+	}
+	public int getCmCount() {
+		return cmCount;
+	}
+	public void setCmCount(int cmCount) {
+		this.cmCount = cmCount;
+	}
+	public Meeting[] getNotificationSet() {
+		return notificationSet;
+	}
+	public void setNotificationSet(Meeting[] notificationSet) {
+		this.notificationSet = notificationSet;
+	}
+	public int getNotifCount() {
+		return notifCount;
+	}
+	public void setNotifCount(int notifCount) {
+		this.notifCount = notifCount;
 	}
     
 }
