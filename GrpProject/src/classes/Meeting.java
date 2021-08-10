@@ -20,13 +20,13 @@ public class Meeting {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.owner = owner;
-		this.room = room;
+		this.setRoom(room);
 		this.attendingCount = 0;
 		this.attendingSet = new Employee[20];
 	}
 	
-	public void inviteEmployee() {
-		//creates notification object and adds it to employee notification set. 
+	public void inviteEmployee(Employee emp) {
+		NotificationSet.addToNotificationSet(emp, this);
 	}
 	
 	public void deleteEmployee(Employee employee) {
@@ -115,6 +115,14 @@ public class Meeting {
 	}
 	public void setAttendingCount(int attendingCount) {
 		this.attendingCount = attendingCount;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 	
 	

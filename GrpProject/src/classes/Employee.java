@@ -9,7 +9,7 @@ public class Employee {
   private String password;
   private Meeting[] commitedMeetings = new Meeting[20];
   private int cmCount;
-  private int[] notificationSet = new int[20];
+  private Meeting[] notificationSet = new Meeting[20];
   private int notifCount;
 //schedule = new empty hashset ::: may not be needed here and implemented in Scedule set
   
@@ -30,8 +30,17 @@ public class Employee {
 		this.password = emp.getPassword();
 		this.commitedMeetings = MembershipSet.fillMeetings(emp);
 		this.cmCount = MembershipSet.getEmpCount(emp);
-		this.notifCount = 0;
+		this.notificationSet = NotificationSet.fillNotifications(emp);
+		this.notifCount = NotificationSet.getEmpCount(emp);
 	}
+  public void updateNotifs() {
+	  this.notificationSet = NotificationSet.fillNotifications(this);
+	  this.notifCount = NotificationSet.getEmpCount(this);
+  }
+  public void updateCommitedMeetings() {
+	  this.commitedMeetings = MembershipSet.fillMeetings(this);
+	  this.cmCount = MembershipSet.getEmpCount(this);
+  }
   
   //notification set may change to its own class so implement later.
   public void acceptNotif(Meeting meeting) {
@@ -45,27 +54,27 @@ public class Employee {
 	  this.deleteNotif(meeting.getMeetingNumber());
   }
   public void deleteNotif(int meetingNum) {
-	  if (notifCount == 1 && notificationSet[0] == meetingNum) {
-		  notificationSet[0]= 0;
+	  if (notifCount == 1 && notificationSet[0].equals(meetingNum) ) {
+		  notificationSet[0]= null;
 		  notifCount--;
 		  return;
 	  }else {
 		  boolean flag = false;
 		  
 		  for (int i = 0; i < (notifCount - 1);i++) {
-			  if (notificationSet[i] == meetingNum) {
+			  if (notificationSet[i].equals(meetingNum)) {
 				  flag = true;
 			  }
 			  if (flag == true) {
 				  notificationSet[i] = notificationSet[i+1];
 			  }
 		  }
-		  notificationSet[notifCount]= 0;
+		  notificationSet[notifCount]= null;
 		  notifCount--;
 	  }
   }
   
-  public void addNotif(int meetingNum) {
+  public void addNotif(Meeting meetingNum) {
 	  notificationSet[notifCount] = meetingNum;
 	  notifCount++;
   }
