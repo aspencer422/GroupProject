@@ -7,7 +7,7 @@ public class Employee {
   private boolean admin;
   private String username;
   private String password;
-  private int [] commitedMeetings = new int[20];
+  private Meeting[] commitedMeetings = new Meeting[20];
   private int cmCount;
   private int[] notificationSet = new int[20];
   private int notifCount;
@@ -22,14 +22,25 @@ public class Employee {
 		this.cmCount = 0;
 		this.notifCount = 0;
 	}
+  public Employee(Employee emp) {
+		this.name = emp.getName();
+		this.id = emp.getId();
+		this.position = emp.getPosition();
+		this.username = emp.getUsername();
+		this.password = emp.getPassword();
+		this.commitedMeetings = MembershipSet.fillMeetings(emp);
+		this.cmCount = MembershipSet.getEmpCount(emp);
+		this.notifCount = 0;
+	}
   
   //notification set may change to its own class so implement later.
   public void acceptNotif(Meeting meeting) {
 	  MeetingSet.addEmpToMeeting(meeting.getMeetingNumber(), this);
-	  commitedMeetings[cmCount]=meeting.getMeetingNumber();
+	  commitedMeetings[cmCount]=meeting;
 	  cmCount++;
 	  
 	  //add to schedule Set class
+	  MembershipSet.addToMembershipSet(this, meeting);
 	  ScheduleSet.addEntry(this.id, meeting.getMeetingNumber(),meeting.getDate(), meeting.getStartTime(), meeting.getEndTime());
 	  this.deleteNotif(meeting.getMeetingNumber());
   }
@@ -75,24 +86,24 @@ public class Employee {
 	}
   
   
-  public void deleteMeetingFromPersonalSet (int meetingNum) {
+  public void deleteMeetingFromPersonalSet (Meeting meetingNum) {
 	  
-	  if (cmCount == 1 && commitedMeetings[0] == meetingNum) {
-		  commitedMeetings[0]= 0;
+	  if (cmCount == 1 && commitedMeetings[0].equals(meetingNum)) {
+		  commitedMeetings[0]= null;
 		  cmCount--;
 		  return;
 	  }else {
 		  boolean flag = false;
 		  
 		  for (int i = 0; i < (cmCount - 1);i++) {
-			  if (commitedMeetings[i] == meetingNum) {
+			  if (commitedMeetings[i].equals(meetingNum)) {
 				  flag = true;
 			  }
 			  if (flag == true) {
 				  commitedMeetings[i] = commitedMeetings[i+1];
 			  }
 		  }
-		  commitedMeetings[cmCount]= 0;
+		  commitedMeetings[cmCount]= null;
 		  cmCount--;
 	  }
 	
