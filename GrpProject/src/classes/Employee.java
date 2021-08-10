@@ -5,7 +5,6 @@ public class Employee {
   private int id;
   private String position;
   private boolean admin;
-  private String username;
   private String password;
   private Meeting[] commitedMeetings = new Meeting[20];
   private int cmCount;
@@ -26,7 +25,6 @@ public Employee(String name, int id, String position, String username, String pa
 		this.name = name;
 		this.id = id;
 		this.position = position;
-		this.username = username;
 		this.password = password;
 		this.setCmCount(0);
 		this.setNotifCount(0);
@@ -40,7 +38,6 @@ public Employee(Employee emp) {
 		this.name = emp.getName();
 		this.id = emp.getId();
 		this.position = emp.getPosition();
-		this.username = emp.getUsername();
 		this.password = emp.getPassword();
 		this.setCommitedMeetings(MembershipSet.fillMeetings(emp));
 		this.setCmCount(MembershipSet.getEmpCount(emp));
@@ -157,13 +154,6 @@ public void deleteMeetingFromPersonalSet (Meeting meeting) {
 		this.position = position;
 	}
 	
-	public String getUsername() {
-		return username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	
 	public String getPassword() {
 		return password;

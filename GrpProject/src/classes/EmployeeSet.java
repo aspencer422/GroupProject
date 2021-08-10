@@ -120,4 +120,14 @@ public class EmployeeSet {
 		}
 		return -1;
 	}
+	public static Employee login(int id, String password) {
+		for(int i = 0; i < count; i++ ) {
+			if(employeeSet[i].getId() == id && employeeSet[i].getPassword().equals(password)) {
+				Employee result = new Employee(employeeSet[i]);
+				return result;
+			}
+		}
+		return null;
+		
+	}
 }

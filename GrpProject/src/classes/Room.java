@@ -3,7 +3,6 @@ package classes;
 public class Room {
 	private int roomNumber;
 	private int roomCap;
-	private boolean isAvail;
 	
 	/**
 	 * public Room(int roomNumber, int roomCap, boolean isAvail)
@@ -12,10 +11,9 @@ public class Room {
 	 * @param roomCap
 	 * @param isAvail
 	 */
-	public Room(int roomNumber, int roomCap, boolean isAvail) {
+	public Room(int roomNumber, int roomCap) {
 		this.roomNumber = roomNumber;
 		this.roomCap = roomCap;
-		this.isAvail = isAvail;
 	}
 	
 	/**
@@ -24,7 +22,7 @@ public class Room {
 	 */
 	@Override
 	public String toString() {
-		return ""+ roomNumber + " " + roomCap + " " + isAvail;
+		return ""+ roomNumber + " " + roomCap + " " ;
 	}
 	
 	/**public boolean equals(Room room) 
@@ -76,12 +74,7 @@ public class Room {
 	public void setRoomCap(int roomCap) {
 		this.roomCap = roomCap;
 	}
-	public boolean isAvail() {
-		return isAvail;
-	}
-	public void setAvail(boolean isAvail) {
-		this.isAvail = isAvail;
-	}
+	
 	
 	
 }
