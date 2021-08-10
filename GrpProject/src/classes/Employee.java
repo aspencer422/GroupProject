@@ -11,9 +11,18 @@ public class Employee {
   private int cmCount;
   private Meeting[] notificationSet = new Meeting[20];
   private int notifCount;
-//schedule = new empty hashset ::: may not be needed here and implemented in Scedule set
+
   
-  public Employee(String name, int id, String position, String username, String password) {
+  /**
+   * public Employee(String name, int id, String position, String username, String password)
+   * Constructor to create employee
+ * @param name
+ * @param id
+ * @param position
+ * @param username
+ * @param password
+ */
+public Employee(String name, int id, String position, String username, String password) {
 		this.name = name;
 		this.id = id;
 		this.position = position;
@@ -22,7 +31,12 @@ public class Employee {
 		this.cmCount = 0;
 		this.notifCount = 0;
 	}
-  public Employee(Employee emp) {
+  /**
+   * public Employee(Employee emp)
+   * Constructor used in GUI to get employee to ram 
+ * @param emp
+ */
+public Employee(Employee emp) {
 		this.name = emp.getName();
 		this.id = emp.getId();
 		this.position = emp.getPosition();
@@ -33,59 +47,85 @@ public class Employee {
 		this.notificationSet = NotificationSet.fillNotifications(emp);
 		this.notifCount = NotificationSet.getEmpCount(emp);
 	}
-  public void updateNotifs() {
+  /**
+   * public void updateNotifs()
+ *  updates notifications and notifcount
+ */
+public void updateNotifs() {
 	  this.notificationSet = NotificationSet.fillNotifications(this);
 	  this.notifCount = NotificationSet.getEmpCount(this);
   }
-  public void updateCommitedMeetings() {
+  /**
+ * public void updateCommitedMeetings()
+ * updates commitedMeeting and CMcount
+ */
+public void updateCommitedMeetings() {
 	  this.commitedMeetings = MembershipSet.fillMeetings(this);
 	  this.cmCount = MembershipSet.getEmpCount(this);
   }
   
-  //notification set may change to its own class so implement later.
-  public void acceptNotif(Meeting meeting) {
-	  MeetingSet.addEmpToMeeting(meeting.getMeetingNumber(), this);
-	  commitedMeetings[cmCount]=meeting;
-	  cmCount++;
+  
+  /**
+   * public void acceptNotif(Meeting meeting)
+   * accepts notification by updating all dataSETS then updating personalSETs
+ * @param meeting
+ */
+public void acceptNotif(Meeting meeting) {
 	  
 	  //add to schedule Set class
+	  MeetingSet.addEmpToMeeting(meeting.getMeetingNumber(), this);
 	  MembershipSet.addToMembershipSet(this, meeting);
 	  ScheduleSet.addEntry(this.id, meeting.getMeetingNumber(),meeting.getDate(), meeting.getStartTime(), meeting.getEndTime());
-	  this.deleteNotif(meeting.getMeetingNumber());
+	  NotificationSet.setHandled(this, meeting);
+	  this.updateCommitedMeetings();
+	  this.updateNotifs();
+	  
   }
-  public void deleteNotif(int meetingNum) {
-	  if (notifCount == 1 && notificationSet[0].equals(meetingNum) ) {
-		  notificationSet[0]= null;
-		  notifCount--;
-		  return;
-	  }else {
-		  boolean flag = false;
-		  
-		  for (int i = 0; i < (notifCount - 1);i++) {
-			  if (notificationSet[i].equals(meetingNum)) {
-				  flag = true;
-			  }
-			  if (flag == true) {
-				  notificationSet[i] = notificationSet[i+1];
-			  }
-		  }
-		  notificationSet[notifCount]= null;
-		  notifCount--;
-	  }
+  /**
+   * public void deleteNotif(int meetingNum)
+   * deletes notification by updating DataNotificaiont set then Updates personal set
+ * @param meeting
+ */
+public void deleteNotif(Meeting meeting) {
+	NotificationSet.setHandled(this, meeting);
+	this.updateNotifs();
   }
   
-  public void addNotif(Meeting meetingNum) {
-	  notificationSet[notifCount] = meetingNum;
-	  notifCount++;
-  }
 
-  public boolean equals(Employee employee) {
+
+  /**
+   * public boolean equals(Employee employee)
+   * checks if two employees are the same by object
+ * @param employee
+ * @return
+ */
+public boolean equals(Employee employee) {
 		return this.id == employee.getId();
 	}
   
-  public boolean equals(int id) {
+  /**
+   * check is employees are equal by empID
+ * @param id
+ * @return bool
+ */
+public boolean equals(int id) {
 		return this.id == id;
 	}
+
+
+  /**
+   * public void deleteMeetingFromPersonalSet (Meeting meeting)
+   * updates membership dataSet the updates personal dataSet
+ * @param meeting
+ */
+public void deleteMeetingFromPersonalSet (Meeting meeting) {
+	  MembershipSet.setInactive(this, meeting);
+	  this.updateCommitedMeetings();
+	
+  }
+  
+  
+  //getter and setters
   public boolean isAdmin() {
 		return admin;
 	}
@@ -93,33 +133,6 @@ public class Employee {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-  
-  
-  public void deleteMeetingFromPersonalSet (Meeting meetingNum) {
-	  
-	  if (cmCount == 1 && commitedMeetings[0].equals(meetingNum)) {
-		  commitedMeetings[0]= null;
-		  cmCount--;
-		  return;
-	  }else {
-		  boolean flag = false;
-		  
-		  for (int i = 0; i < (cmCount - 1);i++) {
-			  if (commitedMeetings[i].equals(meetingNum)) {
-				  flag = true;
-			  }
-			  if (flag == true) {
-				  commitedMeetings[i] = commitedMeetings[i+1];
-			  }
-		  }
-		  commitedMeetings[cmCount]= null;
-		  cmCount--;
-	  }
-	
-  }
-  
-  
-  //getter and setters
   public String getName() {
 		return name;
 	}
@@ -159,26 +172,5 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-  	
-  
-  //hashset meetings
-  //hashset schedule
-  //hashset notifications
-  
-//  constructor(NAME, ID, POSITION, USERNAME, PSWD){
-//    name = NAME;
-//    id = ID;
-//    position = POSITION;
-//    username = USERNAME;
-//    pswd = PSWD;
-//    meetings = new empty hashset;
-//    schedule = new empty hashset;
-//    notifications = new empty hashset;
-//  }
-// not sure what set time slot going to do. may need to be implemented in setOfMeeting classs
-//  setTimeSlot(date, time){
-//    //todo
-//  }
     
 }
