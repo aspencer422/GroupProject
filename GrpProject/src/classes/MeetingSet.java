@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Date;
+
 public class MeetingSet {
 	private static Meeting[] meetingSet = new Meeting[20];
 	private static int count = 0;
@@ -132,5 +134,15 @@ public class MeetingSet {
 			}
 		}
 		return -1;
+	}
+	public static boolean checkRoomAvail(Room room, Date day, int time) {
+		boolean flag = true;
+		for(int i = 0; i < count; i++) {
+			if (meetingSet[i].getRoom().equals(room) && ScheduleSet.isSameDay(day, meetingSet[i].getDate()) && time == meetingSet[i].getStartTime()) {
+				flag = false;;
+			}
+		}
+		return flag;
+		
 	}
 }
